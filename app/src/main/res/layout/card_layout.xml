@@ -1,0 +1,75 @@
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="119dp"
+            android:padding="4dp">
+
+            <ImageView
+                android:id="@+id/imageViewDoc"
+                android:layout_width="70dp"
+                android:layout_height="79dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/document" />
+
+            <TextView
+                android:id="@+id/textViewNumberOrder"
+                style="@style/TextAppearance.MaterialComponents.Headline3"
+                android:layout_width="260dp"
+                android:layout_height="58dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="1"
+                android:textAlignment="viewStart"
+                android:textColor="@color/sub_main_text_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/imageViewDoc"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.19" />
+
+            <TextView
+                android:id="@+id/textViewDateOrder"
+                style="@style/TextAppearance.MaterialComponents.Subtitle2"
+                android:layout_width="100dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="29.10.2023"
+                android:textAlignment="center"
+                android:textColor="@color/sub_main_text_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/imageViewDoc"
+                app:layout_constraintTop_toBottomOf="@id/textViewNumberOrder"
+                app:layout_constraintVertical_bias="0.23" />
+
+            <CheckBox
+                android:id="@+id/checkBoxIsSigned"
+                android:layout_width="158dp"
+                android:layout_height="33dp"
+                android:layout_marginStart="53dp"
+                android:fontFamily="@font/inter_semibold"
+                android:text="Подписан"
+                android:textColor="@color/sub_main_text_color"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toEndOf="@+id/textViewDateOrder"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.87"
+                android:clickable="false"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
