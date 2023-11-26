@@ -44,8 +44,9 @@ public class MainActivity extends AppCompatActivity {
         try {
             Intent myIntent = new Intent(view.getContext(), AddOrder.class);
             startActivity(myIntent);
-            orders = dataBaseWorker.loadData();
-            cardAdapter.notifyItemInserted(orders.size() - 1);
+            //orders = dataBaseWorker.loadData();
+            cardAdapter.notifyItemInserted(orders.size());
+
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(),
                     Toast.LENGTH_SHORT).show();
@@ -55,6 +56,10 @@ public class MainActivity extends AppCompatActivity {
     public void deleteOrder(View view) {
         try {
             dataBaseWorker.deleteOrders(true, "");
+            orders = dataBaseWorker.loadData();
+            cardAdapter.notifyDataSetChanged();
+            finish();
+            startActivity(getIntent());
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(),
                     Toast.LENGTH_SHORT).show();

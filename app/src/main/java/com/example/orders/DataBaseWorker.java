@@ -4,14 +4,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.view.View;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-
 import java.io.Serializable;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,11 +52,26 @@ public class DataBaseWorker extends SQLiteOpenHelper implements Serializable {
             Toast.makeText(context, "Ошибка",
                     Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Добавлен",
+            Toast.makeText(context, "Докумен добавлен",
                     Toast.LENGTH_SHORT).show();
         }
     }
 
+    void updateOrder(String number, String date, Boolean isSigned, String id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
+        cv.put(COL_NUMBER,number);
+        cv.put(COL_DATE,date);
+        cv.put(COL_STATUS, ((isSigned)? "y":"n"));
+        long res = db.update(TABLE_NAME,cv, COL_ID+"=?", new String[]{id});
+        if(res == -1){
+            Toast.makeText(context, "Ошибка",
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(context, "Докумен изменен",
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
     public List<Order> loadData() {
         String Query = "SELECT *" +
                 " FROM " + TABLE_NAME + " ORDER BY " + COL_DATE + ";";
@@ -72,12 +83,13 @@ public class DataBaseWorker extends SQLiteOpenHelper implements Serializable {
         List<Order> list= new ArrayList<>();
         while(cursor.moveToNext()){
             Order order =new Order(
+                    cursor.getInt(0),
             cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3).charAt(0) == 'y');
             list.add(order);
         }
-        list.add(new Order("","",true));
+        list.add(new Order(0, "","",true));
         cursor.close();
         db.close();
         return list;
@@ -108,7 +120,7 @@ public class DataBaseWorker extends SQLiteOpenHelper implements Serializable {
             Toast.makeText(context, "Ошибка",
                     Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Все успешно удалено!",
+            Toast.makeText(context, "Успешно удалено!",
                     Toast.LENGTH_SHORT).show();
         }
     }

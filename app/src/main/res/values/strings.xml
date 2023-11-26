@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Orders</string>
+    <string name="change">Изменить</string>
+    <string name="changeButton">Изменить</string>
+    <string name="signed">Подписан</string>
 </resources>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="Label">#FFFFFF</color>
-    <color name="text_color" />
+    <color name="text_color">#FFFFFF</color>
     <color name="sub_main_text_color">#0C0C0C</color>
-    <color name="bg">#FFFFFF</color>
+    <color name="bg">#0C0C0C</color>
 </resources>
