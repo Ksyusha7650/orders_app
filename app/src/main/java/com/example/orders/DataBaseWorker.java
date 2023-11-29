@@ -1,4 +1,13 @@
 package com.example.orders;
+import static com.example.orders.R.string.add_order;
+import static com.example.orders.R.string.error;
+import static com.example.orders.R.string.table_name;
+import static com.example.orders.R.string.col_id;
+import static com.example.orders.R.string.col_number;
+import static com.example.orders.R.string.col_date;
+import static com.example.orders.R.string.col_status;
+
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -13,11 +22,11 @@ import java.util.List;
 
 public class DataBaseWorker extends SQLiteOpenHelper implements Serializable {
     private static final String DATABASE_NAME = "orders.db";
-    private static final String TABLE_NAME = "Orders";
-    private static final String COL_ID = "id";
-    private static final String COL_NUMBER = "number";
-    private static final String COL_DATE = "date";
-    private static final String COL_STATUS = "status";
+    private static final String TABLE_NAME = String.valueOf(table_name);
+    private static final String COL_ID = String.valueOf(col_id);
+    private static final String COL_NUMBER = String.valueOf(col_number);
+    private static final String COL_DATE = String.valueOf(col_date);
+    private static final String COL_STATUS = String.valueOf(col_status);
     Context context;
 
     public DataBaseWorker(Context context) {
@@ -49,10 +58,10 @@ public class DataBaseWorker extends SQLiteOpenHelper implements Serializable {
         cv.put(COL_STATUS, ((isSigned)? "y":"n"));
         long res = db.insert(TABLE_NAME,null,cv);
         if(res == -1){
-            Toast.makeText(context, "Ошибка",
+            Toast.makeText(context, error,
                     Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Докумен добавлен",
+            Toast.makeText(context, add_order,
                     Toast.LENGTH_SHORT).show();
         }
     }
@@ -68,7 +77,7 @@ public class DataBaseWorker extends SQLiteOpenHelper implements Serializable {
             Toast.makeText(context, "Ошибка",
                     Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Докумен изменен",
+            Toast.makeText(context, "Приказ изменен",
                     Toast.LENGTH_SHORT).show();
         }
     }
@@ -81,7 +90,9 @@ public class DataBaseWorker extends SQLiteOpenHelper implements Serializable {
             cursor = db.rawQuery(Query,null);
         }
         List<Order> list= new ArrayList<>();
-        while(cursor.moveToNext()){
+        while(true){
+            assert cursor != null;
+            if (!cursor.moveToNext()) break;
             Order order =new Order(
                     cursor.getInt(0),
             cursor.getString(1),
@@ -94,22 +105,6 @@ public class DataBaseWorker extends SQLiteOpenHelper implements Serializable {
         db.close();
         return list;
     }
-
-    /*void editData(String id, String title, String text, int prior){
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues cv = new ContentValues();
-        cv.put(C_TITLE, title);
-        cv.put(C_NOTE, text);
-        cv.put(C_PRIOR, prior);
-        long result = db.update(TBL_NAME, cv, C_ID+"=?", new String[]{id});
-        if(result == -1){
-            Toast.makeText(context, R.string.error_edit,
-                    Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(context, R.string.success_edit,
-                    Toast.LENGTH_SHORT).show();
-        }
-    }*/
 
     void deleteOrders(boolean isAll, String id){
         SQLiteDatabase db = this.getWritableDatabase();

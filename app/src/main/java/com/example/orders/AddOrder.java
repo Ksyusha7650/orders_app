@@ -11,9 +11,11 @@ import android.widget.EditText;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.sql.Date;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
 import java.util.Objects;
 
 public class AddOrder extends AppCompatActivity {
@@ -36,9 +38,16 @@ public class AddOrder extends AppCompatActivity {
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     AddOrder.this,
-                    (view, year1, monthOfYear, dayOfMonth) -> date.setText(dayOfMonth + "." + (monthOfYear + 1) + "." + year1),
+                    (view, year1, monthOfYear, dayOfMonth) -> {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(year1, monthOfYear, dayOfMonth);
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
+                        String formattedDate = dateFormat.format(calendar.getTime());
+                        date.setText(formattedDate);
+                    },
                     year, month, day);
             datePickerDialog.show();
+
         });
         if (order != null){
             date.setText(order.Date);
