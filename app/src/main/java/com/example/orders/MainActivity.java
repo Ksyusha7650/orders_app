@@ -1,17 +1,13 @@
 package com.example.orders;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-
-import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
@@ -44,9 +40,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             Intent myIntent = new Intent(view.getContext(), AddOrder.class);
             startActivity(myIntent);
-            //orders = dataBaseWorker.loadData();
             cardAdapter.notifyItemInserted(orders.size());
-
         } catch (Exception e) {
             Toast.makeText(this, e.getMessage(),
                     Toast.LENGTH_SHORT).show();

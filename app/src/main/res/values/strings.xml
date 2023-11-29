@@ -1,6 +1,13 @@
 <resources>
-    <string name="app_name">Orders</string>
+    <string name="app_name">Приказы</string>
     <string name="change">Изменить</string>
     <string name="changeButton">Изменить</string>
     <string name="signed">Подписан</string>
+    <string name="error">Ошибка</string>
+    <string name="add_order">Приказ добавлен</string>
+    <string name="table_name">Orders</string>
+    <string name="col_id">id</string>
+    <string name="col_number">number</string>
+    <string name="col_date">date</string>
+    <string name="col_status">status</string>
 </resources>
