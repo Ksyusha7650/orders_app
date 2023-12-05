@@ -1,4 +1,8 @@
 package com.example.orders;
+import static com.example.orders.R.string.cancel;
+import static com.example.orders.R.string.error;
+
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -7,9 +11,11 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -71,10 +77,27 @@ public class CardAdapter extends RecyclerView.Adapter<CardAdapter.CardViewHolder
         @Override
         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
             int position = viewHolder.getAdapterPosition();
+            // Сохранить удаленный элемент
             Order order = cardItemList.get(position);
-            MainActivity.dataBaseWorker.deleteOrders(false, String.valueOf(order.ID));
-            cardItemList.remove(position);
-            notifyItemRemoved(position);
+            new AlertDialog.Builder(viewHolder.itemView.getContext())
+                    .setTitle(R.string.deletion)
+                    .setMessage(viewHolder.itemView.getContext().getString(R.string.delete_message) + " №" + order.Number +" ?")
+                    .setPositiveButton(R.string.delete, (dialog, which) -> {
+                        MainActivity.dataBaseWorker.deleteOrders(false, String.valueOf(order.ID));
+                        cardItemList.remove(position);
+                        notifyItemRemoved(position);
+                    })
+                    .setNegativeButton(R.string.cancel, (dialog, which) -> {
+                        Toast.makeText(viewHolder.itemView.getContext(), cancel,
+                                Toast.LENGTH_SHORT).show();
+                        Order temp = new Order(order.ID, order.Number, order.Date, order.IsSigned);
+                        cardItemList.remove(position);
+                        notifyItemRemoved(position);
+                        cardItemList.add(position, temp);
+                        notifyItemInserted(position);
+                    })
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         }
 
         @Override

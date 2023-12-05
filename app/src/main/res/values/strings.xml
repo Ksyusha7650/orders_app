@@ -12,4 +12,10 @@
     <string name="col_status">status</string>
     <string name="success_delete">Успешно удалено!</string>
     <string name="order_changed">Приказ изменен</string>
+    <string name="deletion">Удаление</string>
+    <string name="delete_message">Вы уверены, что хотите удалить приказ</string>
+    <string name="delete_message_all">Вы уверены, что хотите удалить все приказы?</string>
+    <string name="delete">Удалить</string>
+    <string name="cancel">Отмена</string>
+    <string name="database_name">orders.db</string>
 </resources>

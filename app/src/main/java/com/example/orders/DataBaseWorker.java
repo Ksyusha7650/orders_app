@@ -2,11 +2,11 @@ package com.example.orders;
 import static com.example.orders.R.string.add_order;
 import static com.example.orders.R.string.error;
 import static com.example.orders.R.string.success_delete;
-import static com.example.orders.R.string.table_name;
 import static com.example.orders.R.string.col_id;
 import static com.example.orders.R.string.col_number;
 import static com.example.orders.R.string.col_date;
 import static com.example.orders.R.string.col_status;
+import static com.example.orders.R.string.table_name;
 
 
 import android.content.ContentValues;
@@ -14,7 +14,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.view.View;
 import android.widget.Toast;
 
 import java.io.Serializable;
@@ -22,17 +21,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataBaseWorker extends SQLiteOpenHelper implements Serializable {
-    private static final String DATABASE_NAME = "orders.db";
-    private static final String TABLE_NAME = String.valueOf(table_name);
-    private static final String COL_ID = String.valueOf(col_id);
-    private static final String COL_NUMBER = String.valueOf(col_number);
-    private static final String COL_DATE = String.valueOf(col_date);
-    private static final String COL_STATUS = String.valueOf(col_status);
+    private static String DATABASE_NAME;
+    private static String TABLE_NAME;
+    private static String COL_ID;
+    private static String COL_NUMBER;
+    private static String COL_DATE;
+    private static String COL_STATUS;
     Context context;
 
     public DataBaseWorker(Context context) {
         super(context, DATABASE_NAME, null, 1);
         this.context = context;
+        DATABASE_NAME = context.getString(R.string.database_name);
+        TABLE_NAME = context.getString(table_name);
+        COL_ID = context.getString(col_id);
+        COL_NUMBER = context.getString(col_number);
+        COL_DATE = context.getString(col_date);
+        COL_STATUS = context.getString(col_status);
     }
 
     @Override
