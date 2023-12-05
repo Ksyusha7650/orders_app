@@ -1,6 +1,7 @@
 package com.example.orders;
 import static com.example.orders.R.string.add_order;
 import static com.example.orders.R.string.error;
+import static com.example.orders.R.string.success_delete;
 import static com.example.orders.R.string.table_name;
 import static com.example.orders.R.string.col_id;
 import static com.example.orders.R.string.col_number;
@@ -74,10 +75,10 @@ public class DataBaseWorker extends SQLiteOpenHelper implements Serializable {
         cv.put(COL_STATUS, ((isSigned)? "y":"n"));
         long res = db.update(TABLE_NAME,cv, COL_ID+"=?", new String[]{id});
         if(res == -1){
-            Toast.makeText(context, "Ошибка",
+            Toast.makeText(context, error,
                     Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Приказ изменен",
+            Toast.makeText(context, R.string.order_changed,
                     Toast.LENGTH_SHORT).show();
         }
     }
@@ -112,10 +113,10 @@ public class DataBaseWorker extends SQLiteOpenHelper implements Serializable {
                 db.delete(TABLE_NAME,"",new String[]{}) :
                 db.delete(TABLE_NAME, COL_ID+"=?", new String[]{id});
         if(result == -1){
-            Toast.makeText(context, "Ошибка",
+            Toast.makeText(context, error,
                     Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(context, "Успешно удалено!",
+            Toast.makeText(context, success_delete,
                     Toast.LENGTH_SHORT).show();
         }
     }

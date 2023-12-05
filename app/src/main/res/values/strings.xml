@@ -10,4 +10,6 @@
     <string name="col_number">number</string>
     <string name="col_date">date</string>
     <string name="col_status">status</string>
+    <string name="success_delete">Успешно удалено!</string>
+    <string name="order_changed">Приказ изменен</string>
 </resources>
