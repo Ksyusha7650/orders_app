@@ -21,6 +21,8 @@ import java.util.Objects;
 public class AddOrder extends AppCompatActivity {
 
     public static Order order;
+
+    private String currentDate;
     EditText date, editTextNumber;
     CheckBox checkBoxIsSigned;
     @Override
@@ -41,8 +43,10 @@ public class AddOrder extends AppCompatActivity {
                     (view, year1, monthOfYear, dayOfMonth) -> {
                         Calendar calendar = Calendar.getInstance();
                         calendar.set(year1, monthOfYear, dayOfMonth);
-                        DateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd", Locale.getDefault());
+                        DateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
                         String formattedDate = dateFormat.format(calendar.getTime());
+                        dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                        currentDate = dateFormat.format(calendar.getTime());
                         date.setText(formattedDate);
                     },
                     year, month, day);
@@ -58,7 +62,7 @@ public class AddOrder extends AppCompatActivity {
             buttonEdit.setOnClickListener(v -> {
                 MainActivity.dataBaseWorker.updateOrder(
                         editTextNumber.getText().toString(),
-                        date.getText().toString(),
+                        currentDate,
                         checkBoxIsSigned.isChecked(),
                         String.valueOf(order.ID)
                 );
@@ -76,7 +80,7 @@ public class AddOrder extends AppCompatActivity {
         try {
             dataBaseWorker.insertOrder(
                     editTextNumber.getText().toString(),
-                    date.getText().toString(),
+                    currentDate,
                     checkBoxIsSigned.isChecked()
             );
             MainActivity.orders = dataBaseWorker.loadData();

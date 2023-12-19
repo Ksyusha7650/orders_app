@@ -2,11 +2,6 @@ package com.example.orders;
 import static com.example.orders.R.string.add_order;
 import static com.example.orders.R.string.error;
 import static com.example.orders.R.string.success_delete;
-import static com.example.orders.R.string.col_id;
-import static com.example.orders.R.string.col_number;
-import static com.example.orders.R.string.col_date;
-import static com.example.orders.R.string.col_status;
-import static com.example.orders.R.string.table_name;
 
 
 import android.content.ContentValues;
@@ -21,23 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DataBaseWorker extends SQLiteOpenHelper implements Serializable {
-    private static String DATABASE_NAME;
-    private static String TABLE_NAME;
-    private static String COL_ID;
-    private static String COL_NUMBER;
-    private static String COL_DATE;
-    private static String COL_STATUS;
+    private static final String DATABASE_NAME = "orders.db";
+    private static final String TABLE_NAME = "Orders";
+    private static final String COL_ID = "id";
+    private static final String COL_NUMBER = "number";
+    private static final String COL_DATE = "date";
+    private static final String COL_STATUS = "status";
     Context context;
 
     public DataBaseWorker(Context context) {
         super(context, DATABASE_NAME, null, 1);
         this.context = context;
-        DATABASE_NAME = context.getString(R.string.database_name);
-        TABLE_NAME = context.getString(table_name);
-        COL_ID = context.getString(col_id);
-        COL_NUMBER = context.getString(col_number);
-        COL_DATE = context.getString(col_date);
-        COL_STATUS = context.getString(col_status);
     }
 
     @Override
@@ -62,7 +51,7 @@ public class DataBaseWorker extends SQLiteOpenHelper implements Serializable {
         cv.put(COL_NUMBER,number);
         cv.put(COL_DATE,date);
         cv.put(COL_STATUS, ((isSigned)? "y":"n"));
-        long res = db.insert(TABLE_NAME,null,cv);
+        long res = db.insert(TABLE_NAME,null, cv);
         if(res == -1){
             Toast.makeText(context, error,
                     Toast.LENGTH_SHORT).show();
@@ -101,7 +90,7 @@ public class DataBaseWorker extends SQLiteOpenHelper implements Serializable {
             if (!cursor.moveToNext()) break;
             Order order =new Order(
                     cursor.getInt(0),
-            cursor.getString(1),
+                cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3).charAt(0) == 'y');
             list.add(order);

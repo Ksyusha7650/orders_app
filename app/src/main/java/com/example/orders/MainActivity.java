@@ -17,7 +17,6 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public static DataBaseWorker dataBaseWorker;
-    private RecyclerView recyclerView;
     private CardAdapter cardAdapter;
     public static List<Order> orders;
     @Override
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             dataBaseWorker = new DataBaseWorker(this);
             orders = dataBaseWorker.loadData();
-            recyclerView = findViewById(R.id.recyclerView);
+            RecyclerView recyclerView = findViewById(R.id.recyclerView);
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
             recyclerView.setLayoutManager(layoutManager);
             cardAdapter = new CardAdapter(orders);
